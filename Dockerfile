@@ -12,6 +12,10 @@ RUN apt-get update -y && apt-get upgrade -y && useradd -m docker
 RUN DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends \
     curl jq build-essential libssl-dev libffi-dev python3 python3-venv python3-dev python3-pip
 
+VOLUME ["/var/run/docker.sock"]
+
+RUN apt-get -yqq install docker.io 
+
 # cd into the user directory, download and unzip the github actions runner
 RUN cd /home/docker && mkdir actions-runner && cd actions-runner \
     && curl -O -L https://github.com/actions/runner/releases/download/v${RUNNER_VERSION}/actions-runner-linux-x64-${RUNNER_VERSION}.tar.gz \
